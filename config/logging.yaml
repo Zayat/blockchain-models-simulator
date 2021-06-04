@@ -1,0 +1,44 @@
+version: 1
+formatters:
+  default:
+    format: '%(asctime)s [%(filename)s:%(lineno)s - %(funcName)s()] %(levelname)s: %(message)s'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: default
+    stream: ext://sys.stdout
+
+  handler_simulator:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: default
+    filename: ../logs/blockchain_simulator.log
+    backupCount: 10
+    maxBytes: 1073741824
+
+  handler_stats:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: default
+    filename: ../logs/blockchain_stats.log
+    backupCount: 10
+    maxBytes: 1073741824
+
+loggers:
+  logger_simulator:
+    level: DEBUG
+    handlers: [handler_simulator, console]
+    propagate: no
+
+  logger_stats:
+    level: DEBUG
+    handlers: [handler_stats]
+    propagate: no
+
+root:
+  level: DEBUG
+  handlers: [console]
+
+
